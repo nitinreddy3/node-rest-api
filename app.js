@@ -3,13 +3,11 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost/bookstore');
+mongoose.connect('mongodb://localhost/rest_test', { useMongoClient: true })
 
-var db = mongoose.connection;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello Puja Rani')
-})
-
+app.use('/api', require('./routes/api'))
 app.listen("8000");
 console.log("listens to port 8000...")
